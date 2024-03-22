@@ -11,15 +11,23 @@ def main():
     host, port = sys.argv[1:]
     port = int(port)
 
-    print(f"[+] Connecting to {host}:{port}...")
 
+    data = "A"
+    body = [data]
+    for i in range(1, 50):
+        body.append(data * (100 * i))
+    
+    print(f"[+] Connecting to {host}:{port}...")
     client = NetClient(host, port)
     client.connect()
     
-    client.send("A" * 1000)
     
-    # print(f"[+] Closing to {host}:{port}...")
-    # client.close()
+    for data in body:
+        print(f"[+] Sending {len(data)} bytes...")
+        client.send(data)
+
+    print(f"[+] Closing to {host}:{port}...")
+    client.close()
 
 if __name__ == "__main__":
     main()

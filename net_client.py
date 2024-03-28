@@ -17,7 +17,7 @@ class NetClient:
         print(res.decode())
     
     def send(self, data):
-        self._sock.send(b"SEND " + bytes(data, encoding = 'utf-8') + b"\n")
+        self._sock.send(f"SEND {data}".encode('latin-1'))
         res = self._sock.recv(2048)
         print(res.decode())
 
